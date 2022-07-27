@@ -6,6 +6,7 @@ use fencer::RegexConfig;
 
 
 fn main() {
+    // this will be static string because it wont ever change
     let regex_json_string: &'static str = r#"{
         "aws": "A[SK]IA[0-9A-Z]{16}",
         "ssh_rsa": "-----BEGIN RSA PRIVATE KEY-----",
