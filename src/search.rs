@@ -1,4 +1,7 @@
-//use std::fs;
+use std::fs;
+use std::error::Error;
+
+use crate::config::RegexConfig;
 
 pub struct SearchResult {
     pub file_name: String,
@@ -8,7 +11,7 @@ pub struct SearchResult {
 
 impl SearchResult {
     pub fn new(file_name: &str, line_number: i32, line_content: &str) -> Option<SearchResult> {
-        if file_name.is_empty() || line_content.is_empty() || line_number > 0 {
+        if file_name.is_empty() || line_content.is_empty() || line_number <= 0 {
             return None
         }
         Some(
@@ -21,13 +24,15 @@ impl SearchResult {
     }
 }
 
-/* pub fn search_for_secrets(project_dir: &str, regex_config: RegexConfig) -> Result<SearchResult, &str> {
-    let dir = fs::read_dir(project_dir).unwrap_or_else(|error| {
-        return Err("Failed to open the dir {}", error);
-    });
+pub fn search_for_secrets(project_dir: &str, regex_config: RegexConfig) -> Result<(SearchResult), &str> {
+    let dir = fs::read_dir(project_dir).unwrap();
 
     for file in dir {
-        println!("Name: {}", file.unwrap().path().display())
+        println!("Name: {}", file.unwrap().path().display());
     }
+
+    Ok(
+        SearchResult::new("test", 2 , "test").unwrap()
+    )
 }
- */
+

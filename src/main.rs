@@ -1,7 +1,7 @@
 use std::env;
 use std::process;
 
-use fencer::{config};
+use fencer::{config, search};
 
 fn main() {
     // this will be static string because it wont ever change
@@ -18,6 +18,9 @@ fn main() {
     let regex_json: config::RegexConfig = config::RegexConfig::new().unwrap();
 
     //search for secrets in the project
-    println!("{:?}", regex_json.regex_pattern)
+    println!("{:?}", regex_json.regex_pattern);
+
+    let result= search::search_for_secrets(&config.project_dir, regex_json).unwrap();
     
+    println!("{:?}", result.file_name);
 }
