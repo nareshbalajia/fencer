@@ -76,7 +76,7 @@ fn read_dir_recurse(project_dir: &str, files_path_vec: &mut Vec<String>) -> Resu
         if file_md.is_dir() {
             // recurse to find all file names inside sub dirs
             if !file_path.display().to_string().contains("git") && !file_path.display().to_string().contains("target") {
-                read_dir_recurse(&file_path.display().to_string(), files_path_vec);
+                read_dir_recurse(&file_path.display().to_string(), files_path_vec).ok();
             }
         }
         else {
@@ -87,5 +87,4 @@ fn read_dir_recurse(project_dir: &str, files_path_vec: &mut Vec<String>) -> Resu
     }
 
     Ok(())
-
 }
