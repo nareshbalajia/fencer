@@ -2,7 +2,7 @@ use clap::{Command, Arg};
 
 pub struct Args {
     pub project_dir: String,
-    pub excluded_paths: String
+    pub excluded_paths: Vec<String>
 }
 
 impl Args {
@@ -24,13 +24,15 @@ impl Args {
                 Arg::with_name("exclude_paths")
                     .short('e')
                     .long("exclude_paths")
+                    .default_values(&["target", "build", ".git"])
                     .takes_value(true)
                     .required(false)
                     .help("The directories to exclude for the scan"),
             ).get_matches();
         
         let project_dir = arg_match.value_of("project_dir").unwrap().to_string();
-        let excluded_paths = arg_match.value_of("exclude_paths").unwrap().to_string();
+        let excluded_paths = arg_match.values_of_t("exclude_paths").unwrap();
+
 
         Args {
             project_dir: project_dir,
