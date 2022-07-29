@@ -1,11 +1,13 @@
 
 use serde_json;
+use serde::{Deserialize, Serialize}; 
+use std::collections::HashMap;
 
 use crate::REGEX_JSON_STRING;
 
 // struct for loading regex config JSON from main.rs
 pub struct RegexConfig {
-    pub regex_pattern: serde_json::Value
+    pub regex_pattern: HashMap<String, String>
 }
 
 // struct for parsing Command line arguements

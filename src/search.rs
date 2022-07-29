@@ -27,15 +27,22 @@ impl SearchResult {
 pub fn search_for_secrets(project_dir: &str, regex_config: RegexConfig) -> Result<(SearchResult), Box<dyn Error>> {
     let mut files_path_vec: Vec<String> = Vec::new();
     read_dir_recurse(project_dir, &mut files_path_vec).unwrap();
-    println!("All file names are {:?}", files_path_vec);
-    
+    //println!("All file names are {:?}", files_path_vec);
+    println!("REGEX CONFIG: {:?}", regex_config.regex_pattern);
+    // now read all the files and check for secrets:
+    for file in files_path_vec {
+        let file_contents = fs::read_to_string(file)?;
+        for (key,value) in &regex_config.regex_pattern {
+           // implement regex pattern match here
+        }   
+    }
     Ok(
         SearchResult::new("test", 2 , "test").unwrap()
     )
 }
 
 fn read_dir_recurse(project_dir: &str, files_path_vec: &mut Vec<String>) -> Result<(), Box<dyn Error>> {
-    println!("Incoming dir: {}", project_dir);
+    //ln!("Incoming dir: {}", project_dir);
     let dir = fs::read_dir(project_dir).unwrap();
     
     for file in dir {
