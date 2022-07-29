@@ -4,6 +4,7 @@ use std::error::Error;
 use regex::Regex;
 
 use crate::config::{RegexConfig, ScanResults};
+use crate::utilities::{read_dir_recurse};
 
 pub struct SearchResult {
     pub file_name: String,
@@ -43,7 +44,6 @@ pub fn search_for_secrets(project_dir: &str, excluded_paths: &Vec<String>, regex
             //issue is here
             Ok(file_contents) => file_contents,
             Err(_error) =>  {
-                eprintln!("An error: {}; skipped.", _error);
                 continue;
             }
         };
@@ -68,37 +68,3 @@ pub fn search_for_secrets(project_dir: &str, excluded_paths: &Vec<String>, regex
         scan_results_vec
     )
 }
-
-fn read_dir_recurse(project_dir: &str, excluded_paths: &Vec<String>, files_path_vec: &mut Vec<String>) -> Result<(), Box<dyn Error>> {
-    let dir = fs::read_dir(project_dir).unwrap();
-    
-    for file in dir {
-        // get file name object and file path
-        let file_path = file.unwrap().path();
-
-        //get metadata to find if obj is file or dir. if file, add to vector, if not, all recursion
-        let file_md = fs::metadata(&file_path).unwrap();
-        if file_md.is_dir() {
-            if !is_excluded_dir(&file_path.display().to_string(), excluded_paths) {
-                read_dir_recurse(&file_path.display().to_string(), excluded_paths, files_path_vec).ok();
-            }            
-        }
-        else {
-            // push the file name for the string vector
-            files_path_vec.push(file_path.display().to_string());
-        }
-        
-    }
-
-    Ok(())
-}
-
-
-pub fn is_excluded_dir(dir: &str, excluded_paths: &Vec<String>) -> bool {
-    for paths in excluded_paths {
-        if dir.contains(paths) {
-            return true
-        }
-    }
-    false
-} 
