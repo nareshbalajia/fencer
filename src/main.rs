@@ -12,13 +12,10 @@ fn main() {
         process::exit(1);
     });
 
-    //println!("{:?}", config.project_dir);
     let regex_json: config::RegexConfig = config::RegexConfig::new().unwrap();
+    let results= search::search_for_secrets(&config.project_dir, regex_json).unwrap();
 
-    //search for secrets in the project
-    //println!("{:?}", regex_json.regex_pattern);
-
-    let result= search::search_for_secrets(&config.project_dir, regex_json).unwrap();
-    
-    //println!("{:?}", result.file_name);
+    for result in results {
+        println!("file name: {:?} line number: {:?} scan type: {:?}", result.file_name, result.line_number, result.scan_type);
+    }    
 }

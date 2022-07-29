@@ -1,6 +1,5 @@
 
 use serde_json;
-use serde::{Deserialize, Serialize}; 
 use std::collections::HashMap;
 
 use crate::REGEX_JSON_STRING;
@@ -16,14 +15,18 @@ pub struct Config {
 }
 
 
+// struct for storing results about the scan
+pub struct ScanResults {
+    pub scan_type: String,
+    pub file_name: String,
+    pub line_number: i32
+}
+
 impl Config {
     pub fn new(args: &Vec<String>) -> Result<Config, &str> {
         // we'll be getting only 1 custom arguement from user apart from Rust's project path arg in 0 index
-        if args.len() < 2 {
-            return Err("Too less arguements!")
-        }
-        else if args.len() > 2 {
-            return Err("Required exactly 1 argurment. i.e Project Path!")
+        if args.len() < 2 || args.len() > 2 {
+            return Err("Too less arguements! Run the program like the example given below:\n fencer <dir_to_project_dir> ")
         }
         Ok(Config{
             project_dir: args[1].clone()

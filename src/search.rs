@@ -1,7 +1,9 @@
 use std::fs;
 use std::error::Error;
 
-use crate::config::RegexConfig;
+use regex::Regex;
+
+use crate::config::{RegexConfig, ScanResults};
 
 pub struct SearchResult {
     pub file_name: String,
@@ -24,20 +26,38 @@ impl SearchResult {
     }
 }
 
-pub fn search_for_secrets(project_dir: &str, regex_config: RegexConfig) -> Result<(SearchResult), Box<dyn Error>> {
+pub fn search_for_secrets(project_dir: &str, regex_config: RegexConfig) -> Result<Vec<ScanResults>, Box<dyn Error>> {
+    // prepare vec for recursive finding of project dir files
     let mut files_path_vec: Vec<String> = Vec::new();
+
+    // why this must be declared as mut? remove this and error will be thrown at vec push statement
+    let mut scan_results_vec: Vec<ScanResults> = Vec::new();
+
+    // get the recursed project file names
     read_dir_recurse(project_dir, &mut files_path_vec).unwrap();
-    //println!("All file names are {:?}", files_path_vec);
-    println!("REGEX CONFIG: {:?}", regex_config.regex_pattern);
+    
     // now read all the files and check for secrets:
     for file in files_path_vec {
-        let file_contents = fs::read_to_string(file)?;
-        for (key,value) in &regex_config.regex_pattern {
-           // implement regex pattern match here
-        }   
+        let file_contents = fs::read_to_string(&file)?;
+        let mut line_number = 0;
+        for line in file_contents.lines() {
+            line_number = line_number + 1;
+            for (key,value) in &regex_config.regex_pattern {
+                let scan_regex = Regex::new(&value).unwrap();
+                if scan_regex.is_match(line) {
+                    scan_results_vec.push(
+                        ScanResults {
+                            file_name: file.to_owned(),
+                            scan_type: key.to_owned(),
+                            line_number: line_number
+                        }
+                    );
+                 }
+            }   
+        }
     }
     Ok(
-        SearchResult::new("test", 2 , "test").unwrap()
+        scan_results_vec
     )
 }
 
