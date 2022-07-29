@@ -4,9 +4,7 @@ use std::process;
 use fencer::{config, search};
 
 fn main() {
-    // this will be static string because it wont ever change
     
-
     let args: Vec<String> = env::args().collect();
     // get the args parsed from parse_args
     let config = config::Config::new(&args).unwrap_or_else(|err| {
