@@ -2,6 +2,14 @@
 name = "fencer"
 version = "0.1.0"
 edition = "2021"
+authors = ["Naresh A nareshbalajia@gmail.com"]
+license = "MIT"
+description = "A mini CLI tool to scan creds and secrets in source code"
+readme = "README.md"
+homepage = "https://github.com/nareshbalajia/fencer"
+repository = "https://github.com/nareshbalajia/fencer"
+keywords = ["cli", "secrets", "credentials"]
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
