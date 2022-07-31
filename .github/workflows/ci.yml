@@ -4,7 +4,7 @@ name: CI-Rust
 
 jobs:
   build_and_test:
-    name: Rust project
+    name: Rust Build Job
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
