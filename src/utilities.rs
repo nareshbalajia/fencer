@@ -4,24 +4,31 @@ use std::error::Error;
 use crate::config::{ScanResults};
 
 pub fn read_dir_recurse(project_dir: &str, excluded_paths: &Vec<String>, files_path_vec: &mut Vec<String>) -> Result<(), Box<dyn Error>> {
-    let dir = fs::read_dir(project_dir).unwrap();
-    
-    for file in dir {
-        // get file name object and file path
-        let file_path = file.unwrap().path();
+    let dir = fs::read_dir(project_dir);
 
-        //get metadata to find if obj is file or dir. if file, add to vector, if not, all recursion
-        let file_md = fs::metadata(&file_path).unwrap();
-        if file_md.is_dir() {
-            if !is_excluded_dir(&file_path.display().to_string(), excluded_paths) {
-                read_dir_recurse(&file_path.display().to_string(), excluded_paths, files_path_vec).ok();
-            }            
+    match dir {
+        Err(err) => {
+            if err.to_string().contains("Not a directory") {
+                println!("Given input is file, hence scanning only the given file :P");
+                files_path_vec.push(project_dir.to_string());
+            }
         }
-        else {
-            // push the file name for the string vector
-            files_path_vec.push(file_path.display().to_string());
-        }
-        
+        Ok(dir) => for file in dir {
+            // get file name object and file path
+            let file_path = file.unwrap().path();
+    
+            //get metadata to find if obj is file or dir. if file, add to vector, if not, all recursion
+            let file_md = fs::metadata(&file_path).unwrap();
+            if file_md.is_dir() {
+                if !is_excluded_dir(&file_path.display().to_string(), excluded_paths) {
+                    read_dir_recurse(&file_path.display().to_string(), excluded_paths, files_path_vec).ok();
+                }            
+            }
+            else {
+                // push the file name for the string vector
+                files_path_vec.push(file_path.display().to_string());
+            }
+        },
     }
     Ok(())
 }
