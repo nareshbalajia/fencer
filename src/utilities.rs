@@ -45,15 +45,15 @@ fn is_excluded_dir(dir: &str, excluded_paths: &Vec<String>) -> bool {
 
 pub fn print_results(scan_results: Vec<ScanResults>) {
     if scan_results.len() > 0 {
-        println!("This sucks, but fencer found some secrets injected into the source code:");
+        println!("\u{1b}[31mThis sucks, but fencer found some secrets injected into the source code:\u{1b}[39m");
         for result in scan_results {
             println!(
-                "File name: {:?}, Line Number: {:?}, Secret Type: {:?}",
+                "\u{1b}[31mFile name: {:?}, Line Number: {:?}, Secret Type: {:?}\u{1b}[39m",
                 result.file_name, result.line_number, result.scan_type
             );
         }
     }
     else {
-        println!("Yay! No secrets");
+        println!("\u{1b}[32mYay! No secrets\u{1b}[39m");
     }
 }
