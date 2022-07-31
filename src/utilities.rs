@@ -1,6 +1,8 @@
 use std::fs;
 use std::error::Error;
 
+use crate::config::{ScanResults};
+
 pub fn read_dir_recurse(project_dir: &str, excluded_paths: &Vec<String>, files_path_vec: &mut Vec<String>) -> Result<(), Box<dyn Error>> {
     let dir = fs::read_dir(project_dir).unwrap();
     
@@ -21,7 +23,6 @@ pub fn read_dir_recurse(project_dir: &str, excluded_paths: &Vec<String>, files_p
         }
         
     }
-
     Ok(())
 }
 
@@ -34,3 +35,18 @@ fn is_excluded_dir(dir: &str, excluded_paths: &Vec<String>) -> bool {
     }
     false
 } 
+
+pub fn print_results(scan_results: Vec<ScanResults>) {
+    if scan_results.len() > 0 {
+        println!("This sucks, but fencer found some secrets injected into the source code:");
+        for result in scan_results {
+            println!(
+                "File name: {:?}, Line Number: {:?}, Secret Type: {:?}",
+                result.file_name, result.line_number, result.scan_type
+            );
+        }
+    }
+    else {
+        println!("Yay! No secrets");
+    }
+}

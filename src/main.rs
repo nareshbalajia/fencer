@@ -1,4 +1,4 @@
-use fencer::{args, config, search};
+use fencer::{args, config, search, utilities};
 
 fn main() {
     
@@ -7,7 +7,6 @@ fn main() {
     let regex_json: config::RegexConfig = config::RegexConfig::new().unwrap();
     let results= search::search_for_secrets(&args.project_dir, &args.excluded_paths, regex_json).unwrap();
 
-    for result in results {
-        println!("file name: {:?} line number: {:?} scan type: {:?}", result.file_name, result.line_number, result.scan_type);
-    }    
+    // print the results
+    utilities::print_results(results);
 }
