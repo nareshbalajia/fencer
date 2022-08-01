@@ -31,6 +31,11 @@ If you installed Cargo, the official Rust Package manager, run the following com
 cargo install fencer
 ```
 
+https://crates.io/crates/fencer
+
+![installation](https://user-images.githubusercontent.com/9593102/182124350-8c1724ec-de08-4ff8-a7ef-67714156ae8e.gif)
+
+
 ## Installing the executable directly
 
 If rust/cargo isn't installed on your machine, you can directly install the executable from the repo's release page
@@ -47,6 +52,8 @@ docker build -t fencer:local .
 
 # Usage Examples
 <sup>[(Back to top)](#table-of-contents)</sup>
+  
+![examples](https://user-images.githubusercontent.com/9593102/182124413-7752f066-9446-42de-93b3-29d7b2b2eeb6.gif)
 
 ## Local Execution
 
@@ -73,9 +80,11 @@ OPTIONS:
             Print version information
 ```
 
+![docker_run](https://user-images.githubusercontent.com/9593102/182124538-02420ddf-0641-4b5c-b597-e4750e190109.gif)
 
 ## Docker Execution
 Mounting the project directory using the docker run command would enable the tool to be run via Docker
+
 
 ```bash
 docker run -v "$(pwd)"/<project_dir_path>:/app -it nareshbalajia/fencer:latest --project_dir /app
