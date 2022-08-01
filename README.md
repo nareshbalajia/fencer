@@ -10,17 +10,6 @@ Fencer is a mini-CLI tool that can used to scan various kind of secrets/credenti
 
 - Exluding sub-dirs within the project that does not have UTF 8 encoded files like build/, target/
 
-## Table of Contents
-
-- [Installation](#installation)
-  - Installation Using Cargo
-  - Installing the executable directly
-  - Building the docker locally
-- [Usage Examples](#usage)
-  - Local Execution
-  - Docker Execution
-- [Supported Secrets](#supported_secrets)
-
 
 # Installation
 <sup>[(Back to top)](#table-of-contents)</sup>
@@ -93,6 +82,7 @@ docker run -v "$(pwd)"/<project_dir_path>:/app -it nareshbalajia/fencer:latest -
 ```
 
 # Supported Secrets
+<sup>[(Back to top)](#table-of-contents)</sup>
 
 | Secret Type | Match Pattern |
 | --- | --- |
