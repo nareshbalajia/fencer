@@ -17,5 +17,7 @@ const REGEX_JSON_STRING: &str = r#"{
     "github_access_token": "[a-zA-Z0-9_-]*:[a-zA-Z0-9_\\-]+@github\\.com*",
     "ssh_rsa": "-----BEGIN RSA PRIVATE KEY-----",
     "ssh_ec": "-----BEGIN EC PRIVATE KEY-----",
-    "password_c1": "password\\s*"
+    "password_c1": "(?i)password\\s*",
+    "password_c2": "(?i)password is\\s*",
+    "password_c3": "(?i)pwd\\s*"
 }"#;
