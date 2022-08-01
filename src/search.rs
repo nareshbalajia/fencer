@@ -1,5 +1,6 @@
 use std::fs;
 use std::error::Error;
+use indicatif::ProgressBar;
 
 use regex::Regex;
 
@@ -38,7 +39,10 @@ pub fn search_for_secrets(project_dir: &str, excluded_paths: &Vec<String>, regex
     read_dir_recurse(project_dir, excluded_paths, &mut files_path_vec).unwrap();
     
     // now read all the files and check for secrets:
+    let pb = ProgressBar::new(1024);
+    println!("Sit tight! Scanning the files..");
     for file in files_path_vec {
+        pb.inc(1);
         let file_read = fs::read_to_string(&file);
         let file_contents = match file_read {
             //issue is here
@@ -64,6 +68,7 @@ pub fn search_for_secrets(project_dir: &str, excluded_paths: &Vec<String>, regex
             }   
         }
     }
+    pb.finish_with_message("Done Scanning");
     Ok(
         scan_results_vec
     )
