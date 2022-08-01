@@ -1,15 +1,28 @@
 # First, build the rust CLI using the RUST runtime and generate the executable
-FROM clux/muslrust:1.62.1-stable as builder
+FROM rust:1.59 as base
 LABEL maintainer="Naresh A nareshbalajia@gmail.com"
 
-WORKDIR /volume
-COPY . .
-RUN cargo build --release
+COPY Cargo.toml .
+COPY ./src src
+RUN mkdir .cargo
+RUN cargo vendor > .cargo/config
+RUN cat .cargo/config
+RUN rustup component add rustfmt clippy;
 
 
-# Copy over the executable to an alpine linux and run the CLI
-FROM alpine:latest
+FROM base AS builder
+RUN cargo build --release 
+RUN cargo install --path . --verbose
 
-COPY --from=builder /volume/target/x86_64-unknown-linux-musl/release/fencer .
+FROM debian:buster-slim as executable 
+COPY --from=builder /usr/local/cargo/bin/fencer /bin
 
-ENTRYPOINT [ "/fencer" ]
+RUN apt-get update \
+ && apt-get install -y ca-certificates
+
+RUN apt install libssl1.1
+
+EXPOSE 8000
+EXPOSE 6350
+
+CMD ["/bin/fencer"]
