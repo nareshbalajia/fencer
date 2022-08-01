@@ -14,7 +14,7 @@ const REGEX_JSON_STRING: &str = r#"{
     "json_web_token": "ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$",
     "firebase": "AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}",
     "facebook_access_token": "EAACEdEose0cBA[0-9A-Za-z]+",
-    "github_access_token": "[a-zA-Z0-9_-]*:[a-zA-Z0-9_\\-]+@github\\.com*",
+    "github_access_token": "(?i)ghp_[0-9a-zA-Z]{36}",
     "ssh_rsa": "-----BEGIN RSA PRIVATE KEY-----",
     "ssh_ec": "-----BEGIN EC PRIVATE KEY-----",
     "password_c1": "(?i)password\\s*",
