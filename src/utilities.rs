@@ -1,5 +1,6 @@
 use std::fs;
 use std::error::Error;
+use std::process;
 
 use crate::config::{ScanResults};
 
@@ -11,6 +12,10 @@ pub fn read_dir_recurse(project_dir: &str, excluded_paths: &Vec<String>, files_p
             if err.to_string().contains("Not a directory") {
                 println!("Given input is file, hence scanning only the given file :P");
                 files_path_vec.push(project_dir.to_string());
+            }
+            else if err.to_string().contains("No such file or directory") {
+                println!("\u{1b}[31mOops, given directory doesnt exist!\u{1b}[39m");
+                process::exit(1);
             }
         }
         Ok(dir) => for file in dir {
