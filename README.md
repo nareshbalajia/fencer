@@ -30,7 +30,6 @@ https://crates.io/crates/fencer
 ## Installing the executable directly
 
 If rust/cargo isn't installed on your machine, you can directly install the executable from the repo's release page
-    - <Coming Soon>
 
 ## Building the docker locally
 
