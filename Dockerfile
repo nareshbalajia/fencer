@@ -25,4 +25,5 @@ RUN apt install libssl1.1
 EXPOSE 8000
 EXPOSE 6350
 
-CMD ["/bin/fencer"]
+ENTRYPOINT ["/bin/fencer"]
+CMD ["--help"]
