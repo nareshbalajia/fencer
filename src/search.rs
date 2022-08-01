@@ -40,6 +40,7 @@ pub fn search_for_secrets(project_dir: &str, excluded_paths: &Vec<String>, regex
     
     // now read all the files and check for secrets:
     let pb = ProgressBar::new(1024);
+    println!("\u{1b}[33mPro Tip - if the project dir is too big, consider giving the sub dirs paths for efficient scanning\u{1b}[39m");
     println!("Sit tight! Scanning the files..");
     for file in files_path_vec {
         pb.inc(1);
