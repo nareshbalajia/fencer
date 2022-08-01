@@ -11,13 +11,13 @@ Fencer is a mini-CLI tool that can used to scan various kind of secrets/credenti
 ## Table of Contents
 
 - [Installation](#installation)
-  - Installation Using Cargo(#cargo_installation)
-  - Installing the executable directly(#github_release)
-  - Building the docker locally(#docker_build)
+  - Installation Using Cargo
+  - Installing the executable directly
+  - Building the docker locally
 - [Usage Examples](#usage)
   - Local Execution
   - Docker Execution
-- Supported Secrets
+- [Supported Secrets](#supported_secrets)
 
 
 # Installation
