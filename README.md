@@ -1,5 +1,7 @@
 # Fencer
 
+![fencer](https://user-images.githubusercontent.com/9593102/182125454-918cc250-528c-4b67-be27-dae49bdc9d7a.jpeg)
+
 Fencer is a mini-CLI tool that can used to scan various kind of secrets/credentials that are hardcoded into a project source code files
 
 # Features
