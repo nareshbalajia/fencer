@@ -11,13 +11,11 @@ const REGEX_JSON_STRING: &str = r#"{
     "authorization_api" : "api[key|_key|\\s+]+[a-zA-Z0-9_\\-]{5,100}",
     "google_api": "AIza[0-9A-Za-z-_]{35}",
     "google_oauth": "ya29\\.[0-9A-Za-z\\-_]+",
-    "json_web_token": "ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$",
+    "heroku_api": "0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
     "firebase": "AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}",
     "facebook_access_token": "EAACEdEose0cBA[0-9A-Za-z]+",
     "github_access_token": "(?i)ghp_[0-9a-zA-Z]{36}",
     "ssh_rsa": "-----BEGIN RSA PRIVATE KEY-----",
     "ssh_ec": "-----BEGIN EC PRIVATE KEY-----",
-    "password_c1": "(?i)password\\s*",
-    "password_c2": "(?i)password is\\s*",
-    "password_c3": "(?i)pwd\\s*"
+    "password_c1": "(?i)password is\\s*"
 }"#;

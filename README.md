@@ -92,7 +92,7 @@ docker run -v "$(pwd)"/<project_dir_path>:/app -it nareshbalajia/fencer:latest -
 | authorization_api | REGEX |
 | google_api | REGEX |
 | google_oauth | REGEX |
-| json_web_token | REGEX |
+| heroku_api | REGEX |
 | firebase | REGEX |
 | facebook_access_token | REGEX |
 | github_access_token | REGEX |
